@@ -1,46 +1,49 @@
 import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Form from "./Form";
+import ExpenseForm from "./ExpenseForm";
 import ExpenseList from "./ExpenseList";
 import ExpenseFilter from "./ExpenseFilter";
 import exp from "constants";
-
-export const categories = ["Groceries", "Utilities", "Entertainment"];
+import categories from "./ExpenseCategory";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [expenses, setExpenses] = useState([
     {
-      Id: 1,
-      Description: "Milk",
-      Amount: 5,
-      Category: "Groceries",
+      id: 1,
+      description: "Milk",
+      amount: 5,
+      category: "Groceries",
     },
     {
-      Id: 2,
-      Description: "Milk",
-      Amount: 15,
-      Category: "Groceries",
+      id: 2,
+      description: "Milk",
+      amount: 15,
+      category: "Groceries",
     },
     {
-      Id: 3,
-      Description: "Couch",
-      Amount: 35,
-      Category: "Groceries",
+      id: 3,
+      description: "Couch",
+      amount: 35,
+      category: "Groceries",
     },
   ]);
 
-  const onChange = (id: number) => {
-    console.log("Delete ", id);
-  };
   const visibleExpenses = selectedCategory
-    ? expenses.filter((e) => e.Category === selectedCategory)
+    ? expenses.filter((e) => e.category === selectedCategory)
     : expenses;
   return (
     <>
       <div className="mb-5">
-        <Form />
+        <ExpenseForm
+          onSubmit={(expense) =>
+            setExpenses([
+              ...expenses,
+              { ...expense, id: expenses.length + 1 },
+            ])
+          }
+        />
       </div>
       <div className="mb-3">
         <ExpenseFilter
@@ -49,7 +52,7 @@ function App() {
       </div>
       <ExpenseList
         expenses={visibleExpenses}
-        onDelete={(id) => setExpenses(expenses.filter((e) => e.Id !== id))}
+        onDelete={(id) => setExpenses(expenses.filter((e) => e.id !== id))}
       />
     </>
   );

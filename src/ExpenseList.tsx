@@ -1,10 +1,10 @@
 import React from "react";
 
 interface Expense {
-  Id: number;
-  Description: string;
-  Amount: number;
-  Category: string;
+  id: number;
+  description: string;
+  amount: number;
+  category: string;
 }
 interface Props {
   expenses: Expense[];
@@ -25,13 +25,13 @@ const ExpenseList = ({ expenses, onDelete }: Props) => {
       </thead>
       <tbody>
         {expenses.map((expense: Expense) => (
-          <tr key={expense.Id}>
-            <td>{expense.Description}</td>
-            <td>{expense.Amount}</td>
-            <td>{expense.Category}</td>
+          <tr key={expense.id}>
+            <td>{expense.description}</td>
+            <td>{expense.amount}</td>
+            <td>{expense.category}</td>
             <td>
               <button
-                onClick={() => onDelete(expense.Id)}
+                onClick={() => onDelete(expense.id)}
                 className="btn btn-outline-danger"
               >
                 Delete
@@ -46,7 +46,7 @@ const ExpenseList = ({ expenses, onDelete }: Props) => {
           <td>
             $
             {expenses
-              .reduce((acc, expense) => expense.Amount + acc, 0)
+              .reduce((acc, expense) => expense.amount + acc, 0)
               .toFixed(2)}
           </td>
           <td></td>
